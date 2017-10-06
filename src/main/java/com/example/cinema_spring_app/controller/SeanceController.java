@@ -1,11 +1,13 @@
 package com.example.cinema_spring_app.controller;
 
+import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.repo.MovieRepository;
 import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddSeanceFrame;
 import com.example.cinema_spring_app.view.DetailsSeancePanel;
 import com.example.cinema_spring_app.view.EditSeanceFrame;
+import com.example.cinema_spring_app.view.ShowMovieSeances;
 import com.example.cinema_spring_app.view.TableSeancePanel;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
@@ -26,12 +28,9 @@ public class SeanceController {
     private final AddSeanceFrame addSeanceFrame;
     private final EditSeanceFrame editSeanceFrame;
     private final SeanceObservable seanceObservable;
-    // private AddSeance addSeance;
-  //  private EditSeance editSeance;
-   // private SeanceObservable seanceObservable;
 
     @Lazy
-    public SeanceController(SeanceRepository seanceRepository, TableSeancePanel tableSeancePanel, DetailsSeancePanel detailsSeancePanel, MovieRepository movieRepository, AddSeanceFrame addSeanceFrame, EditSeanceFrame editSeanceFrame, SeanceObservable seanceObservable) {
+    public SeanceController(SeanceRepository seanceRepository, TableSeancePanel tableSeancePanel, DetailsSeancePanel detailsSeancePanel, MovieRepository movieRepository, AddSeanceFrame addSeanceFrame, EditSeanceFrame editSeanceFrame, SeanceObservable seanceObservable ) {
         this.seanceRepository = seanceRepository;
         this.tableSeancePanel = tableSeancePanel;
         this.detailsSeancePanel = detailsSeancePanel;
@@ -49,6 +48,8 @@ public class SeanceController {
             tableSeancePanel.getModel().addRow(seanceData);
         }
     }
+
+
 
     public Seance getSelectedSeance() {
         Seance seance = null;

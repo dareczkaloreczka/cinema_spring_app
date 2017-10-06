@@ -25,13 +25,15 @@ public class DetailsMoviePanel extends JPanel implements Observable {
     private final MovieController movieController;
     private final EditMovieFrame editMovieFrame;
     private final AddMovieFrame addMovieFrame;
+    private final ShowMovieSeances showMovieSeances;
 
     public DetailsMoviePanel(TableMoviePanel observer, MovieController movieController, EditMovieFrame editMovieFrame,
-                             AddMovieFrame addMovieFrame) {
+                             AddMovieFrame addMovieFrame, ShowMovieSeances showMovieSeances) {
         this.observer = observer;
         this.movieController = movieController;
         this.editMovieFrame = editMovieFrame;
         this.addMovieFrame = addMovieFrame;
+        this.showMovieSeances = showMovieSeances;
         init();
 
     }
@@ -112,6 +114,13 @@ public class DetailsMoviePanel extends JPanel implements Observable {
 
             }
         });
+
+        show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMovieSeances();
+            }
+        });
     }
 
     private void editMovie() {
@@ -128,6 +137,13 @@ public class DetailsMoviePanel extends JPanel implements Observable {
 
     private void removeMovie() {
         movieController.removeMovie();
+    }
+
+    private void showMovieSeances(){
+        Movie movie = movieController.getSelectedMovie();
+        showMovieSeances.setMovie(movie);
+        movieController.fillTheTableForSelectedMovie(movie);
+        showMovieSeances.setVisible(true);
     }
 
     public JTextArea getTitleData() {

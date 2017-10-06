@@ -3,12 +3,16 @@ package com.example.cinema_spring_app.controller;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
+import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.repo.MovieRepository;
+import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddMovieFrame;
 import com.example.cinema_spring_app.view.DetailsMoviePanel;
 import com.example.cinema_spring_app.view.EditMovieFrame;
+import com.example.cinema_spring_app.view.ShowMovieSeances;
 import com.example.cinema_spring_app.view.TableMoviePanel;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -23,15 +27,19 @@ public class MovieController {
     private final DetailsMoviePanel detailsMoviePanel;
     private final AddMovieFrame addMovieFrame;
     private final EditMovieFrame editMovieFrame;
+    private final SeanceRepository seanceRepository;
+    private final ShowMovieSeances showMovieSeances;
 
     @Lazy
-    public MovieController(MovieRepository movieRepository, MovieObservable movieObservable, TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, AddMovieFrame addMovieFrame, EditMovieFrame editMovieFrame) {
+    public MovieController(MovieRepository movieRepository, MovieObservable movieObservable, TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, AddMovieFrame addMovieFrame, EditMovieFrame editMovieFrame, SeanceRepository seanceRepository, ShowMovieSeances showMovieSeances) {
         this.movieRepository = movieRepository;
         this.movieObservable = movieObservable;
         this.tableMoviePanel = tableMoviePanel;
         this.detailsMoviePanel = detailsMoviePanel;
         this.addMovieFrame = addMovieFrame;
         this.editMovieFrame = editMovieFrame;
+        this.seanceRepository = seanceRepository;
+        this.showMovieSeances = showMovieSeances;
     }
 
     public void fillTheTable() {
@@ -39,6 +47,15 @@ public class MovieController {
         for (Movie m : movieList) {
             String[] movieData = {String.valueOf(m.getId()), m.getTitle(), String.valueOf(m.getGenre())};
             tableMoviePanel.getModel().addRow(movieData);
+        }
+    }
+    public void fillTheTableForSelectedMovie(Movie movie){
+        showMovieSeances.getModel().setRowCount(0);
+        List<Seance> seancesOfSelectedMovie = seanceRepository.findByMovie(movie, new Sort(
+                new Sort.Order(Sort.Direction.ASC, "date"), new Sort.Order(Sort.Direction.ASC, "time")));
+        for (Seance s : seancesOfSelectedMovie) {
+            String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()), String.valueOf(s.getTime()), String.valueOf(0)};
+            showMovieSeances.getModel().addRow(seanceData);
         }
     }
     public Movie getSelectedMovie() {

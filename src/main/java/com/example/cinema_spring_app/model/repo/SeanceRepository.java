@@ -6,6 +6,7 @@ import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.TicketOption;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,8 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 public interface SeanceRepository extends JpaRepository<Seance, Integer> {
+
+    public List<Seance> findByMovie(Movie movie, Sort sort);
 
     @Modifying
     @Transactional
