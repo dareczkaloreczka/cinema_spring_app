@@ -20,7 +20,7 @@ public class Seance {
     @ManyToOne
     @JoinColumn
     private Movie movie;
-    @OneToOne
+    @ManyToOne
     private CinemaHall hall;
     //@OneToMany
     //private List<Reservation> reservations;

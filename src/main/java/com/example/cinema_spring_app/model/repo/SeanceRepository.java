@@ -1,6 +1,7 @@
 package com.example.cinema_spring_app.model.repo;
 
 
+import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
@@ -35,6 +36,11 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
     @Transactional
     @Query("update Seance s set s.time = :newTime where s.id = :id")
     public void updateTime (@Param("id") Integer id, @Param("newTime") Time newTime);
+
+    @Modifying
+    @Transactional
+    @Query("update Seance s set s.hall = :newHall where s.id = :id")
+    public void updateHall (@Param("id") Integer id, @Param("newHall") CinemaHall newHall);
 
 
 

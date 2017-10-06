@@ -54,7 +54,7 @@ public class MovieController {
         List<Seance> seancesOfSelectedMovie = seanceRepository.findByMovie(movie, new Sort(
                 new Sort.Order(Sort.Direction.ASC, "date"), new Sort.Order(Sort.Direction.ASC, "time")));
         for (Seance s : seancesOfSelectedMovie) {
-            String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()), String.valueOf(s.getTime()), String.valueOf(0)};
+            String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()), String.valueOf(s.getTime()), String.valueOf(s.getHall().getId())};
             showMovieSeances.getModel().addRow(seanceData);
         }
     }

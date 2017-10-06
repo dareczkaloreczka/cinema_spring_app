@@ -1,5 +1,6 @@
 package com.example.cinema_spring_app.view;
 
+import com.example.cinema_spring_app.controller.HallController;
 import com.example.cinema_spring_app.controller.SeanceController;
 import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Seance;
@@ -9,6 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class EditSeanceFrame extends JDialog {
 
@@ -16,11 +20,13 @@ public class EditSeanceFrame extends JDialog {
     private JTextField movieData;
     private JTextField dateData;
     private JTextField timeData;
-    private JComboBox<CinemaHall> hallData;
+    private JComboBox<Integer> hallData;
     private final SeanceController seanceController;
+    private final HallController hallController;
     private Seance seance;
-    public EditSeanceFrame(SeanceController seanceController) throws HeadlessException {
+    public EditSeanceFrame(SeanceController seanceController, HallController hallController) throws HeadlessException {
         this.seanceController = seanceController;
+        this.hallController = hallController;
         init();
     }
 
@@ -47,11 +53,11 @@ public class EditSeanceFrame extends JDialog {
         timePane.add(time);
         timePane.add(timeData);
         JPanel hallPane = new JPanel();
-        JLabel hall = new JLabel("Hall No: ");
-        hallData = new JComboBox();
-        //List<CinemaHall> halls = hallPresenter.getDAO.getAllHalls();
-        // = new JComboBox(halls.toArray());
-        hallPane.add(hall);
+        JLabel hallNo = new JLabel("Hall No: ");
+        //hallData = new JComboBox();
+        List<Integer> halls = hallController.getAllHalls().stream().map(hall -> hall.getId()).collect(Collectors.toList());
+        hallData = new JComboBox(halls.toArray());
+        hallPane.add(hallNo);
         hallPane.add(hallData);
         seanceDetails.add(moviePane);
         seanceDetails.add(datePane);
@@ -70,7 +76,6 @@ public class EditSeanceFrame extends JDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //seance = seanceController.getSelectedSeance();
                 seanceController.editSeance(seance);
                 seanceController.updateView();
                 setVisible(false);
@@ -103,11 +108,11 @@ public class EditSeanceFrame extends JDialog {
         this.timeData = timeData;
     }
 
-    public JComboBox<CinemaHall> getHallData() {
+    public JComboBox<Integer> getHallData() {
         return hallData;
     }
 
-    public void setHallData(JComboBox<CinemaHall> hallData) {
+    public void setHallData(JComboBox<Integer> hallData) {
         this.hallData = hallData;
     }
 
