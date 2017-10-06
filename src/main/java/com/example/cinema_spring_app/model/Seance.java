@@ -17,23 +17,16 @@ public class Seance {
 
     private Time time;
 
-    private double price;
-
-    private TicketOption ticketOption;
-
     @ManyToOne
     @JoinColumn
     private Movie movie;
-    //@OneToOne
-    //private CinemaHall hall;
+    @OneToOne
+    private CinemaHall hall;
     //@OneToMany
     //private List<Reservation> reservations;
 
-    @Transient
-    private static final double STANDARD_PRICE = 26.00;
 
     public Seance() {
-       // price = STANDARD_PRICE * ticketOption.getFactor();
     }
 
    /* public List<Reservation> getReservations() {
@@ -60,13 +53,13 @@ public class Seance {
         this.movie = movie;
     }
 
-    /*public CinemaHall getHall() {
+    public CinemaHall getHall() {
         return hall;
     }
 
     public void setHall(CinemaHall hall) {
         this.hall = hall;
-    }*/
+    }
 
     public Date getDate() {
         return date;
@@ -84,21 +77,8 @@ public class Seance {
         this.time = time;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
-    public TicketOption getTicketOption() {
-        return ticketOption;
-    }
-
-    public void setTicketOption(TicketOption ticketOption) {
-        this.ticketOption = ticketOption;
-    }
 
 
 }

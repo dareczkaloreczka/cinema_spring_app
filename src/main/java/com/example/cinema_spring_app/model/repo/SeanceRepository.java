@@ -32,9 +32,6 @@ public interface SeanceRepository extends JpaRepository<Seance, Integer> {
     @Query("update Seance s set s.time = :newTime where s.id = :id")
     public void updateTime (@Param("id") Integer id, @Param("newTime") Time newTime);
 
-    @Modifying
-    @Transactional
-    @Query("update Seance s set s.ticketOption = :newOption where s.id = :id")
-    public void updateTicketOption (@Param("id") Integer id, @Param("newOption") TicketOption newOption);
+
 
 }

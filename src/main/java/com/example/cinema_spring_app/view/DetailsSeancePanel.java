@@ -17,10 +17,14 @@ public class DetailsSeancePanel extends JPanel {
     private JTextArea hallData;
     private final SeanceController seanceController;
     private final TableSeancePanel tableSeancePanel;
+    private final EditSeanceFrame editSeanceFrame;
+    private final AddSeanceFrame addSeanceFrame;
 
-    public DetailsSeancePanel(SeanceController seanceController, TableSeancePanel tableSeancePanel) {
+    public DetailsSeancePanel(SeanceController seanceController, TableSeancePanel tableSeancePanel, EditSeanceFrame editSeanceFrame, AddSeanceFrame addSeanceFrame) {
         this.seanceController = seanceController;
         this.tableSeancePanel = tableSeancePanel;
+        this.editSeanceFrame = editSeanceFrame;
+        this.addSeanceFrame = addSeanceFrame;
         init();
     }
 
@@ -91,13 +95,13 @@ public class DetailsSeancePanel extends JPanel {
     }
     private void editSeance() {
         Seance seance = seanceController.getSelectedSeance();
-     //   EditSeanceFrame editFrame = new EditSeanceFrame(seance);
-      //  editFrame.setVisible(true);
+        editSeanceFrame.setSeance(seance);
+        seanceController.showEditedSeance(seance);
+        editSeanceFrame.setVisible(true);
     }
 
     private void addSeance(){
-       // AddSeance addSeanceFrame =  new AddSeance();
-      // addSeanceFrame.setVisible(true);
+        addSeanceFrame.setVisible(true);
     }
     private void removeSeance(){
         seanceController.removeSeance();
