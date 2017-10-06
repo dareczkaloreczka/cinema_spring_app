@@ -13,9 +13,9 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 
 @Component
-public class EditFrame extends JDialog {
+public class EditMovieFrame extends JDialog {
 
-    public static EditFrame editFrame;
+    public static EditMovieFrame editMovieFrame;
 
    JTextField titleData;
    JTextField premiereData;
@@ -26,7 +26,7 @@ public class EditFrame extends JDialog {
    private final MovieController movieController;
    private Movie movie;
 
-   public EditFrame(MovieController movieController) throws HeadlessException {
+   public EditMovieFrame(MovieController movieController) throws HeadlessException {
        this.movieController = movieController;
        init(); }
 
@@ -100,12 +100,12 @@ public class EditFrame extends JDialog {
 
    }
 
-   public static EditFrame getEditFrame() {
-       return editFrame;
+   public static EditMovieFrame getEditMovieFrame() {
+       return editMovieFrame;
    }
 
-   public static void setEditFrame(EditFrame editFrame) {
-       EditFrame.editFrame = editFrame;
+   public static void setEditMovieFrame(EditMovieFrame editMovieFrame) {
+       EditMovieFrame.editMovieFrame = editMovieFrame;
    }
 
     public JTextField getTitleData() {

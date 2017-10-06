@@ -16,6 +16,8 @@ import java.sql.Date;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
+    public Movie findByTitle(String title);
+
     @Modifying
     @Transactional
     @Query("update Movie m set m.title = :newTitle where m.id = :id")

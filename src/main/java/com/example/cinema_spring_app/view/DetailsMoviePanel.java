@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 @Component
 
-public class DetailsPanel extends JPanel implements Observable {
+public class DetailsMoviePanel extends JPanel implements Observable {
 
     private JTextArea titleData;
     private JTextArea premiereData;
@@ -21,16 +21,16 @@ public class DetailsPanel extends JPanel implements Observable {
     private JTextArea genreData;
     private JTextArea durationData;
     private JTextArea ageData;
-    private final TablePanel observer;
+    private final TableMoviePanel observer;
     private final MovieController movieController;
-    private final EditFrame editFrame;
+    private final EditMovieFrame editMovieFrame;
     private final AddMovieFrame addMovieFrame;
 
-    public DetailsPanel(TablePanel observer, MovieController movieController, EditFrame editFrame,
-                        AddMovieFrame addMovieFrame) {
+    public DetailsMoviePanel(TableMoviePanel observer, MovieController movieController, EditMovieFrame editMovieFrame,
+                             AddMovieFrame addMovieFrame) {
         this.observer = observer;
         this.movieController = movieController;
-        this.editFrame = editFrame;
+        this.editMovieFrame = editMovieFrame;
         this.addMovieFrame = addMovieFrame;
         init();
 
@@ -116,9 +116,9 @@ public class DetailsPanel extends JPanel implements Observable {
 
     private void editMovie() {
         Movie movie = movieController.getSelectedMovie();
-        editFrame.setMovie(movie);
+        editMovieFrame.setMovie(movie);
         movieController.showEditedMovie(movie);
-        editFrame.setVisible(true);
+        editMovieFrame.setVisible(true);
     }
 
     private void addMovie() {

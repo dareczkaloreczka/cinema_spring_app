@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SpringBootApplication
 @EnableJpaRepositories("com.example.cinema_spring_app")
@@ -18,14 +20,16 @@ import java.awt.*;
 @Component
 public class MainFrame extends JFrame {
 
-    private final TablePanel tablePanel;
-    private final DetailsPanel detailsPanel;
+    private final TableMoviePanel tableMoviePanel;
+    private final DetailsMoviePanel detailsMoviePanel;
     private final MovieController movieController;
+    private final RepertoireFrame repertoireFrame;
     @Autowired
-    public MainFrame(TablePanel tablePanel, DetailsPanel detailsPanel, MovieController movieController) throws HeadlessException {
-        this.tablePanel = tablePanel;
-        this.detailsPanel = detailsPanel;
+    public MainFrame(TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, MovieController movieController, RepertoireFrame repertoireFrame) throws HeadlessException {
+        this.tableMoviePanel = tableMoviePanel;
+        this.detailsMoviePanel = detailsMoviePanel;
         this.movieController = movieController;
+        this.repertoireFrame = repertoireFrame;
         init();
     }
 
@@ -48,20 +52,18 @@ public class MainFrame extends JFrame {
         getContentPane().add(BorderLayout.NORTH, menuBar);
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(1, 2));
-        mainPanel.add(tablePanel);
-        mainPanel.add(detailsPanel);
+        mainPanel.add(tableMoviePanel);
+        mainPanel.add(detailsMoviePanel);
         getContentPane().add(mainPanel);
 
     movieController.fillTheTable();
-     /*   showRepertoire.addActionListener(new ActionListener() {
+
+    showRepertoire.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RepertoireFrame repertoireFrame = new RepertoireFrame();
                 repertoireFrame.setVisible(true);
             }
         });
 
-
-    }*/
     }
 }

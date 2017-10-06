@@ -9,13 +9,13 @@ import java.util.Observable;
 import java.util.Observer;
 @Component
 
-public class TablePanel extends JPanel implements Observer {
+public class TableMoviePanel extends JPanel implements Observer {
 
     private final MyTableModel model;
     private final JTable movieTable;
     private final MovieController movieController;
 
-    public TablePanel(MyTableModel model, MovieController movieController) {
+    public TableMoviePanel(MyTableModel model, MovieController movieController) {
         this.model = model;
         this.movieController = movieController;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
