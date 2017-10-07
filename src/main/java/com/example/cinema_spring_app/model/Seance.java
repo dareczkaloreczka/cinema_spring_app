@@ -22,20 +22,20 @@ public class Seance {
     private Movie movie;
     @ManyToOne
     private CinemaHall hall;
-    //@OneToMany
-    //private List<Reservation> reservations;
+    @OneToMany
+    private List<Reservation> reservations;
 
 
     public Seance() {
     }
 
-   /* public List<Reservation> getReservations() {
+   public List<Reservation> getReservations() {
         return reservations;
     }
 
     public void setReservations(List<Reservation> reservationList) {
         this.reservations = reservationList;
-    }*/
+    }
 
     public int getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.example.cinema_spring_app.view;
 
+import com.example.cinema_spring_app.controller.ReservationController;
 import com.example.cinema_spring_app.controller.SeanceController;
 import com.example.cinema_spring_app.model.Seance;
 import org.springframework.stereotype.Component;
@@ -19,12 +20,16 @@ public class DetailsSeancePanel extends JPanel {
     private final TableSeancePanel tableSeancePanel;
     private final EditSeanceFrame editSeanceFrame;
     private final AddSeanceFrame addSeanceFrame;
+    private final MakeReservationFrame makeReservationFrame;
+    private final ReservationController reservationController;
 
-    public DetailsSeancePanel(SeanceController seanceController, TableSeancePanel tableSeancePanel, EditSeanceFrame editSeanceFrame, AddSeanceFrame addSeanceFrame) {
+    public DetailsSeancePanel(SeanceController seanceController, TableSeancePanel tableSeancePanel, EditSeanceFrame editSeanceFrame, AddSeanceFrame addSeanceFrame, MakeReservationFrame makeReservationFrame, ReservationController reservationController) {
         this.seanceController = seanceController;
         this.tableSeancePanel = tableSeancePanel;
         this.editSeanceFrame = editSeanceFrame;
         this.addSeanceFrame = addSeanceFrame;
+        this.makeReservationFrame = makeReservationFrame;
+        this.reservationController = reservationController;
         init();
     }
 
@@ -92,6 +97,13 @@ public class DetailsSeancePanel extends JPanel {
 
             }
         });
+
+        makeReservation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                makeReservation();
+            }
+        });
     }
     private void editSeance() {
         Seance seance = seanceController.getSelectedSeance();
@@ -103,8 +115,16 @@ public class DetailsSeancePanel extends JPanel {
     private void addSeance(){
         addSeanceFrame.setVisible(true);
     }
+
     private void removeSeance(){
         seanceController.removeSeance();
+    }
+
+    private void makeReservation(){
+        Seance seance = seanceController.getSelectedSeance();
+        reservationController.initializeSeatsPanel();
+        makeReservationFrame.setSeance(seance);
+        makeReservationFrame.setVisible(true);
     }
 
 

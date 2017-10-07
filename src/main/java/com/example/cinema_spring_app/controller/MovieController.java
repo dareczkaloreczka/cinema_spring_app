@@ -58,6 +58,10 @@ public class MovieController {
             showMovieSeances.getModel().addRow(seanceData);
         }
     }
+
+    public List<Movie> getAllTheMovies(){
+        return movieRepository.findAll();
+    }
     public Movie getSelectedMovie() {
         Movie movie = null;
         if (tableMoviePanel.getMovieTable().getSelectedRow() > -1) {
