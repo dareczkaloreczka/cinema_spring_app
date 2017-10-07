@@ -17,10 +17,12 @@ public class AddMovieFrame extends JDialog {
 
 
     private JTextField titleData;
-    private JTextField premiereData;
+    private JComboBox<Integer> premiereYear;
+    private JComboBox<Integer> premiereMonth;
+    private JComboBox<Integer> premiereDay;
     private JTextField directorData;
     private JComboBox<MovieGenre> genreBox;
-    private JTextField durationData;
+    private JComboBox<Integer> durationData;
     private JComboBox<MovieCategory> categoryBox;
     private JButton save;
     private final MovieController movieController;
@@ -43,9 +45,13 @@ public class AddMovieFrame extends JDialog {
         titlePane.add(titleData);
         JPanel premierePane = new JPanel();
         JLabel premiere = new JLabel("Premiere: ");
-        premiereData = new JTextField(15);
+        premiereDay = new JComboBox<>(initDayBox());
+        premiereMonth = new JComboBox<>(initMonthBox());
+        premiereYear = new JComboBox<>(initYearBox());
         premierePane.add(premiere);
-        premierePane.add(premiereData);
+        premierePane.add(premiereDay);
+        premierePane.add(premiereMonth);
+        premierePane.add(premiereYear);
         JPanel directorPane = new JPanel();
         JLabel director = new JLabel("Director: ");
         directorData = new JTextField(15);
@@ -59,7 +65,7 @@ public class AddMovieFrame extends JDialog {
         genrePane.add(genreBox);
         JPanel durationPane = new JPanel();
         JLabel duration = new JLabel("Duration: ");
-        durationData = new JTextField(15);
+        durationData = new JComboBox(initDurationBox());
         durationPane.add(duration);
         durationPane.add(durationData);
         JPanel agePane = new JPanel();
@@ -100,6 +106,42 @@ public class AddMovieFrame extends JDialog {
         });
     }
 
+    private Integer[] initDayBox(){
+        Integer[] dayBox = new Integer[31];
+        int counter = 1;
+        for (int i = 0; i <dayBox.length ; i++) {
+            dayBox[i] = counter;
+            counter++;
+        }
+        return dayBox;
+    }
+    private Integer[] initMonthBox(){
+        Integer[] monthBox = new Integer[12];
+        int counter = 1;
+        for (int i = 0; i <monthBox.length ; i++) {
+            monthBox[i] = counter;
+            counter++;
+        }
+        return monthBox;
+    }
+    private Integer[] initYearBox(){
+        Integer[] yearBox = new Integer[20];
+        int counter = 2000;
+        for (int i = 0; i <yearBox.length ; i++) {
+            yearBox[i] = counter;
+            counter++;
+        }
+        return yearBox;
+    }
+    private Integer[] initDurationBox(){
+        Integer[] yearBox = new Integer[180];
+        for (int i = 0; i <yearBox.length ; i++) {
+            yearBox[i] = i;
+        }
+        return yearBox;
+    }
+
+
     public JTextField getTitleData() {
         return titleData;
     }
@@ -108,13 +150,7 @@ public class AddMovieFrame extends JDialog {
         this.titleData = titleData;
     }
 
-    public JTextField getPremiereData() {
-        return premiereData;
-    }
 
-    public void setPremiereData(JTextField premiereData) {
-        this.premiereData = premiereData;
-    }
 
     public JTextField getDirectorData() {
         return directorData;
@@ -132,11 +168,11 @@ public class AddMovieFrame extends JDialog {
         this.genreBox = genreBox;
     }
 
-    public JTextField getDurationData() {
+    public JComboBox<Integer> getDurationData() {
         return durationData;
     }
 
-    public void setDurationData(JTextField durationData) {
+    public void setDurationData(JComboBox<Integer> durationData) {
         this.durationData = durationData;
     }
 
@@ -158,6 +194,30 @@ public class AddMovieFrame extends JDialog {
 
     public MovieController getMovieController() {
         return movieController;
+    }
+
+    public JComboBox<Integer> getPremiereYear() {
+        return premiereYear;
+    }
+
+    public void setPremiereYear(JComboBox<Integer> premiereYear) {
+        this.premiereYear = premiereYear;
+    }
+
+    public JComboBox<Integer> getPremiereMonth() {
+        return premiereMonth;
+    }
+
+    public void setPremiereMonth(JComboBox<Integer> premiereMonth) {
+        this.premiereMonth = premiereMonth;
+    }
+
+    public JComboBox<Integer> getPremiereDay() {
+        return premiereDay;
+    }
+
+    public void setPremiereDay(JComboBox<Integer> premiereDay) {
+        this.premiereDay = premiereDay;
     }
 }
 

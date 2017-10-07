@@ -24,12 +24,19 @@ public class MainFrame extends JFrame {
     private final DetailsMoviePanel detailsMoviePanel;
     private final MovieController movieController;
     private final RepertoireFrame repertoireFrame;
+    private final MgmtReservationFrame mgmtReservationFrame;
+  //  private final ManageReservationsFrame manageReservationsFrame;
+
     @Autowired
-    public MainFrame(TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, MovieController movieController, RepertoireFrame repertoireFrame) throws HeadlessException {
+    public MainFrame(TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel,
+                     MovieController movieController, RepertoireFrame repertoireFrame,
+                     MgmtReservationFrame mgmtReservationFrame) throws HeadlessException {
         this.tableMoviePanel = tableMoviePanel;
         this.detailsMoviePanel = detailsMoviePanel;
         this.movieController = movieController;
         this.repertoireFrame = repertoireFrame;
+        this.mgmtReservationFrame = mgmtReservationFrame;
+        //     this.manageReservationsFrame = manageReservationsFrame;
         init();
     }
 
@@ -42,10 +49,8 @@ public class MainFrame extends JFrame {
         JMenu repertoire = new JMenu("Repertoire");
         JMenu reservations = new JMenu("Reservations");
         JMenuItem showRepertoire = new JMenuItem("Show Repertoire");
-        JMenuItem addNewReservation = new JMenuItem("Create new..");
         JMenuItem manageReservations = new JMenuItem("Manage reservations");
         repertoire.add(showRepertoire);
-        reservations.add(addNewReservation);
         reservations.add(manageReservations);
         menuBar.add(repertoire);
         menuBar.add(reservations);
@@ -64,6 +69,13 @@ public class MainFrame extends JFrame {
                 repertoireFrame.setVisible(true);
             }
         });
+
+    manageReservations.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            mgmtReservationFrame.setVisible(true);
+        }
+    });
 
     }
 }

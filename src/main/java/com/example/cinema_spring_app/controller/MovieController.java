@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -82,10 +83,13 @@ public class MovieController {
     public void addMovie() {
         Movie movie = new Movie();
         movie.setTitle(addMovieFrame.getTitleData().getText());
-        movie.setYear(Date.valueOf(addMovieFrame.getPremiereData().getText()));
+        movie.setYear(Date.valueOf(LocalDate.of(
+                (Integer) addMovieFrame.getPremiereYear().getSelectedItem(),
+                (Integer) addMovieFrame.getPremiereMonth().getSelectedItem(),
+                (Integer) addMovieFrame.getPremiereDay().getSelectedItem())));
         movie.setDirector(addMovieFrame.getDirectorData().getText());
         movie.setGenre((MovieGenre) addMovieFrame.getGenreBox().getSelectedItem());
-        movie.setDuration(Integer.parseInt(addMovieFrame.getDurationData().getText()));
+        movie.setDuration((Integer)(addMovieFrame.getDurationData().getSelectedItem()));
         movie.setAgeCategory((MovieCategory) addMovieFrame.getCategoryBox().getSelectedItem());
         movieRepository.save(movie);
         updateView();
@@ -99,24 +103,19 @@ public class MovieController {
 
     public void showEditedMovie(Movie movie){
         editMovieFrame.getTitleData().setText(movie.getTitle());
-        editMovieFrame.getPremiereData().setText(movie.getYear().toString());
         editMovieFrame.getDirectorData().setText(movie.getDirector());
-        editMovieFrame.getDurationData().setText(String.valueOf(movie.getDuration()));
     }
 
     public void editMovie(Movie movie){
-       /* movie.setTitle(editFrame.getTitleData().getText());
-        movie.setYear(Date.valueOf(editFrame.getPremiereData().getText()));
-        movie.setDirector(editFrame.getDirectorData().getText());
-        movie.setGenre((MovieGenre) editFrame.getGenreBox().getSelectedItem());
-        movie.setDuration(Integer.parseInt(editFrame.getDurationData().getText()));
-        movie.setAgeCategory((MovieCategory) editFrame.getCategoryBox().getSelectedItem());*/
 
         movieRepository.updateTitle(movie.getId(), editMovieFrame.getTitleData().getText());
-        movieRepository.updateYear(movie.getId(), Date.valueOf(editMovieFrame.getPremiereData().getText()));
+        movieRepository.updateYear(movie.getId(), Date.valueOf(LocalDate.of(
+                (Integer) addMovieFrame.getPremiereYear().getSelectedItem(),
+                (Integer) addMovieFrame.getPremiereMonth().getSelectedItem(),
+                (Integer) addMovieFrame.getPremiereDay().getSelectedItem())));
         movieRepository.updateDirector(movie.getId(), editMovieFrame.getDirectorData().getText());
         movieRepository.updateGenre(movie.getId(), (MovieGenre) editMovieFrame.getGenreBox().getSelectedItem());
-        movieRepository.updateDuration(movie.getId(), Integer.parseInt(editMovieFrame.getDurationData().getText()));
+        movieRepository.updateDuration(movie.getId(), (Integer)(editMovieFrame.getDurationData().getSelectedItem()));
         movieRepository.updateCategory(movie.getId(),(MovieCategory) editMovieFrame.getCategoryBox().getSelectedItem());
     }
 

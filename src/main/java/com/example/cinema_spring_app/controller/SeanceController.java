@@ -1,6 +1,6 @@
 package com.example.cinema_spring_app.controller;
 
-import com.example.cinema_spring_app.model.CinemaHall;
+import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.repo.HallRepository;
 import com.example.cinema_spring_app.model.repo.MovieRepository;
@@ -12,9 +12,10 @@ import com.example.cinema_spring_app.view.TableSeancePanel;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -65,16 +66,19 @@ public class SeanceController {
         detailsSeancePanel.getDateData().setText(String.valueOf(seance.getDate()));
         detailsSeancePanel.getTimeData().setText(String.valueOf(seance.getTime()));
         detailsSeancePanel.getHallData().setText(String.valueOf(seance.getHall().getId()));
-        //detailsSeancePanel.getHallData().setText("tbc");
     }
 
     public void addSeance() {
         Seance seance = new Seance();
-        seance.setMovie(movieRepository.findByTitle(addSeanceFrame.getMovieData().getText()));
-        seance.setDate(Date.valueOf(addSeanceFrame.getDateData().getText()));
-        seance.setTime(Time.valueOf(addSeanceFrame.getTimeData().getText()));
+        seance.setMovie((Movie) addSeanceFrame.getMovieData().getSelectedItem());
+        seance.setDate(Date.valueOf(LocalDate.of(
+                (Integer) addSeanceFrame.getYear().getSelectedItem(),
+                (Integer) addSeanceFrame.getMonth().getSelectedItem(),
+                (Integer) addSeanceFrame.getDay().getSelectedItem())));
+        seance.setTime(Time.valueOf(LocalTime.of(
+                (Integer) addSeanceFrame.getHour().getSelectedItem(),
+                (Integer) addSeanceFrame.getMinute().getSelectedItem())));
         seance.setHall(hallRepository.findOne((Integer)addSeanceFrame.getHallData().getSelectedItem()));
-        //seance.setHall(null);
         seanceRepository.save(seance);
         updateView();
 
@@ -87,16 +91,25 @@ public class SeanceController {
 
     public void editSeance(Seance seance){
 
-        seanceRepository.updateMovie(seance.getId(), movieRepository.findByTitle(editSeanceFrame.getMovieData().getText()));
-        seanceRepository.updateDate(seance.getId(),Date.valueOf(editSeanceFrame.getDateData().getText()));
-        seanceRepository.updateTime(seance.getId(),Time.valueOf(editSeanceFrame.getTimeData().getText()));
+        seanceRepository.updateMovie(seance.getId(), (Movie) addSeanceFrame.getMovieData().getSelectedItem());
+        seanceRepository.updateDate(seance.getId(),Date.valueOf(LocalDate.of(
+                (Integer) addSeanceFrame.getYear().getSelectedItem(),
+                (Integer) addSeanceFrame.getMonth().getSelectedItem(),
+                (Integer) addSeanceFrame.getDay().getSelectedItem())));
+        seanceRepository.updateTime(seance.getId(),Time.valueOf(LocalTime.of(
+                (Integer) addSeanceFrame.getHour().getSelectedItem(),
+                (Integer) addSeanceFrame.getMinute().getSelectedItem())));
         seanceRepository.updateHall(seance.getId(), hallRepository.findOne((Integer)editSeanceFrame.getHallData().getSelectedItem()));
     }
 
     public void showEditedSeance(Seance seance) {
-        editSeanceFrame.getMovieData().setText(seance.getMovie().getTitle());
-        editSeanceFrame.getDateData().setText(seance.getDate().toString());
-        editSeanceFrame.getTimeData().setText(seance.getTime().toString());
+        editSeanceFrame.getMovieData().setSelectedItem(seance.getMovie());
+        editSeanceFrame.getDay().setSelectedItem(seance.getDate().toLocalDate().getDayOfMonth());
+        editSeanceFrame.getMonth().setSelectedItem(seance.getDate().toLocalDate().getMonth());
+        editSeanceFrame.getYear().setSelectedItem(seance.getDate().toLocalDate().getYear());
+        editSeanceFrame.getHour().setSelectedItem(seance.getTime().toLocalTime().getHour());
+        editSeanceFrame.getMinute().setSelectedItem(seance.getTime().toLocalTime().getMinute());
+        editSeanceFrame.getHallData().setSelectedItem(seance.getHall().getId());
     }
 
     public void updateView(){

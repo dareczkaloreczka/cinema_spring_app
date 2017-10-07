@@ -1,8 +1,9 @@
 package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.HallController;
+import com.example.cinema_spring_app.controller.MovieController;
 import com.example.cinema_spring_app.controller.SeanceController;
-import com.example.cinema_spring_app.model.CinemaHall;
+import com.example.cinema_spring_app.model.Movie;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -16,16 +17,21 @@ import java.util.stream.Collectors;
 public class AddSeanceFrame extends JDialog {
 
 
-    private JTextField movieData;
-    private JTextField dateData;
-    private JTextField timeData;
+    private JComboBox<Movie> movieData;
+    private JComboBox<Integer> year;
+    private JComboBox<Integer> month;
+    private JComboBox<Integer> day;
+    private JComboBox<Integer> hour;
+    private JComboBox<Integer> minute;
     private JComboBox<Integer> hallData;
     private final SeanceController seanceController;
+    private final MovieController movieController;
     private final TableSeancePanel tableSeancePanel;
     private final HallController hallController;
 
-    public AddSeanceFrame(SeanceController seanceController, TableSeancePanel tableSeancePanel, HallController hallController) throws HeadlessException {
+    public AddSeanceFrame(SeanceController seanceController, MovieController movieController, TableSeancePanel tableSeancePanel, HallController hallController) throws HeadlessException {
         this.seanceController = seanceController;
+        this.movieController = movieController;
         this.tableSeancePanel = tableSeancePanel;
         this.hallController = hallController;
         init();
@@ -39,22 +45,27 @@ public class AddSeanceFrame extends JDialog {
         seanceDetails.setLayout(new GridLayout(3, 2));
         JPanel moviePane = new JPanel();
         JLabel movie = new JLabel("Movie: ");
-        movieData = new JTextField(15);
+        movieData = new JComboBox(movieController.getAllTheMovies().toArray());
         moviePane.add(movie);
         moviePane.add(movieData);
         JPanel datePane = new JPanel();
         JLabel date = new JLabel("Date : ");
-        dateData = new JTextField(15);
+        year = new JComboBox<>(initYearBox());
+        month = new JComboBox<>(initMonthBox());
+        day = new JComboBox<>(initDayBox());
         datePane.add(date);
-        datePane.add(dateData);
+        datePane.add(day);
+        datePane.add(month);
+        datePane.add(year);
         JPanel timePane = new JPanel();
         JLabel time = new JLabel("Time : ");
-        timeData = new JTextField(15);
+        hour = new JComboBox<>(initHourBox());
+        minute = new JComboBox<>(initMinuteBox());
         timePane.add(time);
-        timePane.add(timeData);
+        timePane.add(hour);
+        timePane.add(minute);
         JPanel hallPane = new JPanel();
         JLabel hallNo = new JLabel("Hall No: ");
-        //hallData = new JComboBox();
         List<Integer> halls = hallController.getAllHalls().stream().map(hall -> hall.getId()).collect(Collectors.toList());
         hallData = new JComboBox(halls.toArray());
         hallPane.add(hallNo);
@@ -90,21 +101,118 @@ public class AddSeanceFrame extends JDialog {
     }
 
 
-    public JTextField getMovieData() {
+    public JComboBox<Integer> getYear() {
+        return year;
+    }
+
+    public JComboBox<Integer> getMonth() {
+        return month;
+    }
+
+    public JComboBox<Integer> getDay() {
+        return day;
+    }
+
+    public SeanceController getSeanceController() {
+        return seanceController;
+    }
+
+    public TableSeancePanel getTableSeancePanel() {
+        return tableSeancePanel;
+    }
+
+    public HallController getHallController() {
+        return hallController;
+    }
+
+    public JComboBox<Movie> getMovieData() {
         return movieData;
     }
 
-    public JTextField getDateData() {
-        return dateData;
+    public void setMovieData(JComboBox<Movie> movieData) {
+        this.movieData = movieData;
     }
 
-    public JTextField getTimeData() {
-        return timeData;
+    public MovieController getMovieController() {
+        return movieController;
+    }
+
+    public void setYear(JComboBox<Integer> year) {
+        this.year = year;
+    }
+
+    public void setMonth(JComboBox<Integer> month) {
+        this.month = month;
+    }
+
+    public void setDay(JComboBox<Integer> day) {
+        this.day = day;
+    }
+
+    public JComboBox<Integer> getHour() {
+        return hour;
+    }
+
+    public void setHour(JComboBox<Integer> hour) {
+        this.hour = hour;
+    }
+
+    public JComboBox<Integer> getMinute() {
+        return minute;
+    }
+
+    public void setMinute(JComboBox<Integer> minute) {
+        this.minute = minute;
+    }
+
+    public void setHallData(JComboBox<Integer> hallData) {
+        this.hallData = hallData;
     }
 
     public JComboBox<Integer> getHallData() {
         return hallData;
     }
 
+    private Integer[] initDayBox(){
+        Integer[] dayBox = new Integer[31];
+        int counter = 1;
+        for (int i = 0; i <dayBox.length ; i++) {
+            dayBox[i] = counter;
+            counter++;
+        }
+        return dayBox;
+    }
+    private Integer[] initMonthBox(){
+        Integer[] monthBox = new Integer[12];
+        int counter = 1;
+        for (int i = 0; i <monthBox.length ; i++) {
+            monthBox[i] = counter;
+            counter++;
+        }
+        return monthBox;
+    }
+    private Integer[] initYearBox(){
+        Integer[] yearBox = new Integer[20];
+        int counter = 2000;
+        for (int i = 0; i <yearBox.length ; i++) {
+            yearBox[i] = counter;
+            counter++;
+        }
+        return yearBox;
+    }
+    private Integer[] initHourBox(){
+        Integer[] hourBox = new Integer[24];
+        for (int i = 0; i <hourBox.length ; i++) {
+            hourBox[i] = i;
+        }
+        return hourBox;
+    }
+    private Integer[] initMinuteBox(){
+        Integer[] minuteBox = new Integer[60];
+        for (int i = 0; i <minuteBox.length ; i++) {
+            minuteBox[i] = i;
+        }
+        return minuteBox;
+    }
 
 }
