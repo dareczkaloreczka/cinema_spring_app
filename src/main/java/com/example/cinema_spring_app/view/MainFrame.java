@@ -25,7 +25,6 @@ public class MainFrame extends JFrame {
     private final MovieController movieController;
     private final RepertoireFrame repertoireFrame;
     private final MgmtReservationFrame mgmtReservationFrame;
-  //  private final ManageReservationsFrame manageReservationsFrame;
 
     @Autowired
     public MainFrame(TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel,
@@ -36,7 +35,6 @@ public class MainFrame extends JFrame {
         this.movieController = movieController;
         this.repertoireFrame = repertoireFrame;
         this.mgmtReservationFrame = mgmtReservationFrame;
-        //     this.manageReservationsFrame = manageReservationsFrame;
         init();
     }
 

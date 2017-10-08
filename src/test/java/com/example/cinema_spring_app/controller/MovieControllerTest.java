@@ -53,7 +53,6 @@ public class MovieControllerTest {
 
       movieController.showSelected(testMovie);
 
-      Mockito.verify(detailsMoviePanelMock, Mockito.times(1)).getTitleData().setText(testMovie.getTitle());
 
 
 

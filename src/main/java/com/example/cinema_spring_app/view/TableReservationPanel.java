@@ -2,18 +2,16 @@ package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.ReservationController;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
+
 @Component
 public class TableReservationPanel extends JPanel {
 
     private final MyTableModel model;
     private JTable reservationsTable;
-    private final ReservationController reservationController;
 
-    public TableReservationPanel(MyTableModel model, ReservationController reservationController) {
+    public TableReservationPanel(MyTableModel model) {
         this.model = model;
-        this.reservationController = reservationController;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel reservations = new JLabel("RESERVATIONS");
         this.model.addColumn("ID");
@@ -33,17 +31,16 @@ public class TableReservationPanel extends JPanel {
 
     }
     public void fillTheRow(String[] rowData) {
-        getModel().addRow(rowData);
+        model.addRow(rowData);
     }
-    public void clearContent(){
-        getModel().setRowCount(0);
+    public int getSelectedIndex() {
+        int id = -1;
+        if (reservationsTable.getSelectedRow() > -1) {
+            id = Integer.parseInt((String) reservationsTable.getModel().getValueAt(reservationsTable.getSelectedRow(), 0));
+        }
+        return id;
     }
-
     public MyTableModel getModel() {
         return model;
-    }
-
-    public JTable getReservationsTable() {
-        return reservationsTable;
     }
 }

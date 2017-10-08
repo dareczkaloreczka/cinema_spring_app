@@ -3,8 +3,6 @@ package com.example.cinema_spring_app.controller;
 import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
-import com.example.cinema_spring_app.model.repo.HallRepository;
-import com.example.cinema_spring_app.model.repo.MovieRepository;
 import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddSeanceFrame;
 import com.example.cinema_spring_app.view.DetailsSeancePanel;

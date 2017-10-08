@@ -5,14 +5,12 @@ import com.example.cinema_spring_app.model.Movie;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @Component
-
 public class DetailsMoviePanel extends JPanel implements Observable {
 
     private JTextArea titleData;
@@ -21,21 +19,18 @@ public class DetailsMoviePanel extends JPanel implements Observable {
     private JTextArea genreData;
     private JTextArea durationData;
     private JTextArea ageData;
-    private final TableMoviePanel observer;
     private final MovieController movieController;
     private final EditMovieFrame editMovieFrame;
     private final AddMovieFrame addMovieFrame;
     private final ShowMovieSeances showMovieSeances;
 
-    public DetailsMoviePanel(TableMoviePanel observer, MovieController movieController, EditMovieFrame editMovieFrame,
+    public DetailsMoviePanel( MovieController movieController, EditMovieFrame editMovieFrame,
                              AddMovieFrame addMovieFrame, ShowMovieSeances showMovieSeances) {
-        this.observer = observer;
         this.movieController = movieController;
         this.editMovieFrame = editMovieFrame;
         this.addMovieFrame = addMovieFrame;
         this.showMovieSeances = showMovieSeances;
         init();
-
     }
 
     public void init() {
@@ -129,7 +124,6 @@ public class DetailsMoviePanel extends JPanel implements Observable {
     }
 
     private void addMovie() {
-
         addMovieFrame.setVisible(true);
     }
 
@@ -150,54 +144,6 @@ public class DetailsMoviePanel extends JPanel implements Observable {
         genreData.setText(movie.getGenre().toString());
         durationData.setText(String.valueOf(movie.getDuration()));
         ageData.setText(movie.getAgeCategory().toString());
-    }
-
-    public JTextArea getTitleData() {
-        return titleData;
-    }
-
-    public void setTitleData(JTextArea titleData) {
-        this.titleData = titleData;
-    }
-
-    public JTextArea getPremiereData() {
-        return premiereData;
-    }
-
-    public void setPremiereData(JTextArea premiereData) {
-        this.premiereData = premiereData;
-    }
-
-    public JTextArea getDirectorData() {
-        return directorData;
-    }
-
-    public void setDirectorData(JTextArea directorData) {
-        this.directorData = directorData;
-    }
-
-    public JTextArea getGenreData() {
-        return genreData;
-    }
-
-    public void setGenreData(JTextArea genreData) {
-        this.genreData = genreData;
-    }
-
-    public JTextArea getDurationData() {
-        return durationData;
-    }
-
-    public void setDurationData(JTextArea durationData) {
-        this.durationData = durationData;
-    }
-
-    public JTextArea getAgeData() {
-        return ageData;
-    }
-
-    public void setAgeData(JTextArea ageData) {
-        this.ageData = ageData;
     }
 
     @Override

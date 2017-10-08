@@ -7,7 +7,6 @@ import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +16,9 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class EditSeanceFrame extends JDialog {
-
 
     private JComboBox<Movie> movieData;
     private JComboBox<Integer> year;
@@ -33,7 +30,7 @@ public class EditSeanceFrame extends JDialog {
     private final SeanceController seanceController;
     private final HallController hallController;
     private final MovieController movieController;
-  //  private Seance seance;
+
 
     public EditSeanceFrame(SeanceController seanceController, HallController hallController, MovieController movieController) throws HeadlessException {
         this.seanceController = seanceController;
@@ -90,6 +87,7 @@ public class EditSeanceFrame extends JDialog {
         getContentPane().add(mainPanel);
 
 
+
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +96,6 @@ public class EditSeanceFrame extends JDialog {
                 setVisible(false);
             }
         });
-
     }
 
     public Object[] getSeanceData() {
@@ -111,84 +108,16 @@ public class EditSeanceFrame extends JDialog {
     }
 
     private Date convertBoxesToDate() {
-        int year = (Integer) getYear().getSelectedItem();
-        int month = (Integer) getMonth().getSelectedItem();
-        int day = (Integer) getDay().getSelectedItem();
-        return Date.valueOf(LocalDate.of(year, month, day));
+        int y = (Integer) year.getSelectedItem();
+        int m = (Integer) month.getSelectedItem();
+        int d = (Integer) day.getSelectedItem();
+        return Date.valueOf(LocalDate.of(y, m, d));
     }
 
     private Time convertBoxesToTime() {
-        int hour = (Integer) getHour().getSelectedItem();
-        int minute = (Integer) getMinute().getSelectedItem();
-        return Time.valueOf(LocalTime.of(hour, minute));
-    }
-
-    public JComboBox<Movie> getMovieData() {
-        return movieData;
-    }
-
-    public void setMovieData(JComboBox<Movie> movieData) {
-        this.movieData = movieData;
-    }
-
-    public MovieController getMovieController() {
-        return movieController;
-    }
-
-    public JComboBox<Integer> getYear() {
-        return year;
-    }
-
-    public void setYear(JComboBox<Integer> year) {
-        this.year = year;
-    }
-
-    public JComboBox<Integer> getMonth() {
-        return month;
-    }
-
-    public void setMonth(JComboBox<Integer> month) {
-        this.month = month;
-    }
-
-    public JComboBox<Integer> getDay() {
-        return day;
-    }
-
-    public void setDay(JComboBox<Integer> day) {
-        this.day = day;
-    }
-
-    public HallController getHallController() {
-        return hallController;
-    }
-
-    public JComboBox<Integer> getHour() {
-        return hour;
-    }
-
-    public void setHour(JComboBox<Integer> hour) {
-        this.hour = hour;
-    }
-
-    public JComboBox<Integer> getMinute() {
-        return minute;
-    }
-
-    public void setMinute(JComboBox<Integer> minute) {
-        this.minute = minute;
-    }
-
-    public JComboBox<CinemaHall> getHallData() {
-        return hallData;
-    }
-
-    public void setHallData(JComboBox<CinemaHall> hallData) {
-        this.hallData = hallData;
-    }
-
-    public SeanceController getSeanceController() {
-        return seanceController;
+        int h = (Integer) hour.getSelectedItem();
+        int min = (Integer) minute.getSelectedItem();
+        return Time.valueOf(LocalTime.of(h, min));
     }
 
 

@@ -2,11 +2,12 @@ package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.ReservationController;
 import com.example.cinema_spring_app.controller.SeanceController;
+import com.example.cinema_spring_app.model.Reservation;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.TicketOption;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,12 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-//@Scope ("prototype")
 public class MakeReservationFrame extends JDialog {
 
     private final SeanceController seanceController;
     private final ReservationController reservationController;
-    private Seance seance;
     private String rowNo;
     private int seatNo;
     private JTextField customerName;
@@ -34,7 +33,6 @@ public class MakeReservationFrame extends JDialog {
         setSize(700, 300);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         seatsPanel = new JPanel();
-        initializeSeatsPanel();
         JLabel label = new JLabel("CHOOSE YOUR SEAT");
         JPanel customerPane = new JPanel();
         JLabel name = new JLabel("Name: ");
@@ -83,81 +81,57 @@ public class MakeReservationFrame extends JDialog {
         return seats;
     }
 
-    private void initializeSeatsPanel(){
-        if (seance != null){
-      reservationController.initializeSeatsPanel();}
+    public void initializeSeatsPanel(Seance seance) {
+        seatsPanel.removeAll();
+        List<Reservation> bookedReservations = reservationController.getBySeance(seance);
+        List<JButton> seats = seatsFactory(seance.getHall().getNumberOfRows(), seance.getHall().getSeatsInRow());
+        seatsPanel.setLayout(new GridLayout(seance.getHall().getNumberOfRows(), seance.getHall().getSeatsInRow()));
+        for (JButton seat : seats) {
+            seat.setBackground(Color.CYAN);
+            seat.setSize(new Dimension(5, 5));
+            seat.setFont(new Font("Arial", Font.PLAIN, 7));
+            String rowNo = seat.getText().substring(0, 1);
+            int seatNo = Integer.parseInt(seat.getText().substring(1));
+            seatsPanel.add(seat);
+            for (Reservation r : bookedReservations) {
+                if (r.getRow().equals(rowNo) && r.getSeat() == seatNo) {
+                    seat.setBackground(Color.RED);
+                    seat.setEnabled(false);
+                }
+            }
+            seat.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setRowNo(rowNo);
+                    setSeatNo(seatNo);
+                    for (JButton seat : seats) {
+                        if (seat.getBackground().equals(Color.GREEN)) {
+                            seat.setBackground(Color.CYAN);
+                        }
+                    }
+                    seat.setBackground(Color.GREEN);
+                    chosenSeat.setText("Your seat: " + rowNo + seatNo);
+                }
+            });
+        }
     }
 
-
-    public SeanceController getSeanceController() {
-        return seanceController;
-    }
-
-    public ReservationController getReservationController() {
-        return reservationController;
-    }
-
-    public Seance getSeance() {
-        return seance;
-    }
-
-    public String getRowNo() {
-        return rowNo;
+    public void setFieldsForReservation(Reservation reservation, String row, int seat){
+        reservation.setCustomerName(customerName.getText());
+        reservation.setCustomerEmailAddress(customerEmailAddress.getText());
+        reservation.setSeance(seanceController.getSelectedSeance());
+        reservation.setRow(row);
+        reservation.setSeat(seat);
+        reservation.setTicketOption((TicketOption) ticketOptions.getSelectedItem());
+        reservation.setPrice();
     }
 
     public void setRowNo(String rowNo) {
         this.rowNo = rowNo;
     }
 
-    public int getSeatNo() {
-        return seatNo;
-    }
-
     public void setSeatNo(int seatNo) {
         this.seatNo = seatNo;
     }
 
-    public JTextField getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(JTextField customerName) {
-        this.customerName = customerName;
-    }
-
-    public JTextField getCustomerEmailAddress() {
-        return customerEmailAddress;
-    }
-
-    public void setCustomerEmailAddress(JTextField customerEmailAddress) {
-        this.customerEmailAddress = customerEmailAddress;
-    }
-
-    public JComboBox<TicketOption> getTicketOptions() {
-        return ticketOptions;
-    }
-
-    public void setSeance(Seance seance) {
-        this.seance = seance;
-    }
-
-    public void setTicketOptions(JComboBox<TicketOption> ticketOptions) {
-        this.ticketOptions = ticketOptions;
-    }
-
-    public JPanel getSeatsPanel() {
-        return seatsPanel;
-    }
-
-    public void setSeatsPanel(JPanel seatsPanel) {
-        this.seatsPanel = seatsPanel;
-    }
-
-    public JLabel getChosenSeat() {
-        return chosenSeat;
-    }
-
-    public void setChosenSeat(JLabel chosenSeat) {
-        this.chosenSeat = chosenSeat;
-    }
 }

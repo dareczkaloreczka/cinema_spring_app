@@ -127,28 +127,11 @@ public class DetailsSeancePanel extends JPanel {
     }
 
     private void makeReservation(){
-        Seance seance = seanceController.getSelectedSeance();
-        reservationController.initializeSeatsPanel();
-        makeReservationFrame.setSeance(seance);
+        reservationController.initializeSeatsPanel(seanceController.getSelectedSeance());
         makeReservationFrame.setVisible(true);
     }
 
 
-    public JTextArea getMovieData() {
-        return movieData;
-    }
-
-    public JTextArea getDateData() {
-        return dateData;
-    }
-
-    public JTextArea getTimeData() {
-        return timeData;
-    }
-
-    public JTextArea getHallData() {
-        return hallData;
-    }
 
 
 }

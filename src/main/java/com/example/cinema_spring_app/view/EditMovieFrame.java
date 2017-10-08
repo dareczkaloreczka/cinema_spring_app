@@ -5,7 +5,6 @@ import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +25,6 @@ public class EditMovieFrame extends JDialog {
     private JComboBox<Integer> durationData;
     private JComboBox<MovieCategory> categoryBox;
     private final MovieController movieController;
-    // private Movie movie;
 
     public EditMovieFrame(MovieController movieController) throws HeadlessException {
         this.movieController = movieController;
@@ -90,7 +88,6 @@ public class EditMovieFrame extends JDialog {
         mainPanel.add(buttonPane);
         getContentPane().add(mainPanel);
 
-
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,82 +120,6 @@ public class EditMovieFrame extends JDialog {
     public void setFields(Movie movie) {
         titleData.setText(movie.getTitle());
         directorData.setText(movie.getDirector());
-    }
-
-    public JTextField getTitleData() {
-        return titleData;
-    }
-
-    public void setTitleData(JTextField titleData) {
-        this.titleData = titleData;
-    }
-
-    public JComboBox<Integer> getPremiereYear() {
-        return premiereYear;
-    }
-
-    public void setPremiereYear(JComboBox<Integer> premiereYear) {
-        this.premiereYear = premiereYear;
-    }
-
-    public JComboBox<Integer> getPremiereMonth() {
-        return premiereMonth;
-    }
-
-    public void setPremiereMonth(JComboBox<Integer> premiereMonth) {
-        this.premiereMonth = premiereMonth;
-    }
-
-    public JComboBox<Integer> getPremiereDay() {
-        return premiereDay;
-    }
-
-    public void setPremiereDay(JComboBox<Integer> premiereDay) {
-        this.premiereDay = premiereDay;
-    }
-
-    public JTextField getDirectorData() {
-        return directorData;
-    }
-
-    public void setDirectorData(JTextField directorData) {
-        this.directorData = directorData;
-    }
-
-    public JComboBox<MovieGenre> getGenreBox() {
-        return genreBox;
-    }
-
-    public void setGenreBox(JComboBox<MovieGenre> genreBox) {
-        this.genreBox = genreBox;
-    }
-
-    public JComboBox<Integer> getDurationData() {
-        return durationData;
-    }
-
-    public void setDurationData(JComboBox<Integer> durationData) {
-        this.durationData = durationData;
-    }
-
-   /* public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-    }*/
-
-    public JComboBox<MovieCategory> getCategoryBox() {
-        return categoryBox;
-    }
-
-    public void setCategoryBox(JComboBox<MovieCategory> categoryBox) {
-        this.categoryBox = categoryBox;
-    }
-
-    public MovieController getMovieController() {
-        return movieController;
     }
 
     private Integer[] initDayBox() {

@@ -12,11 +12,8 @@ public class Seance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private Date date;
-
     private Time time;
-
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn
     private Movie movie;
@@ -24,10 +21,6 @@ public class Seance {
     private CinemaHall hall;
     @OneToMany
     private List<Reservation> reservations;
-
-
-    public Seance() {
-    }
 
    public List<Reservation> getReservations() {
         return reservations;

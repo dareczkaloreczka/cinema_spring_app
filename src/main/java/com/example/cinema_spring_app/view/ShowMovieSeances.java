@@ -2,9 +2,7 @@ package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.SeanceController;
 import com.example.cinema_spring_app.model.Movie;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 @Component
 public class ShowMovieSeances extends JDialog {
@@ -13,7 +11,6 @@ public class ShowMovieSeances extends JDialog {
     private final MyTableModel model;
     private JTable selectedMovieSeancesTable;
     private Movie movie;
-
 
     public ShowMovieSeances(SeanceController seanceController, MyTableModel model) {
         this.seanceController = seanceController;
@@ -32,7 +29,6 @@ public class ShowMovieSeances extends JDialog {
         scrollPanePanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         add(nowPlaying);
         add(scrollPanePanel);
-
     }
 
     public void fillTheRow(String[] rowData) {
@@ -44,7 +40,6 @@ public class ShowMovieSeances extends JDialog {
     public MyTableModel getModel() {
         return model;
     }
-
 
     public Movie getMovie() {
         return movie;

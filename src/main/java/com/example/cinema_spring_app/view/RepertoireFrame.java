@@ -7,7 +7,6 @@ import java.awt.*;
 @Component
 public class RepertoireFrame extends JDialog {
 
-
     private final SeanceController seanceController;
     private final TableSeancePanel tableSeancePanel;
     private final DetailsSeancePanel detailsSeancePanel;
@@ -20,7 +19,6 @@ public class RepertoireFrame extends JDialog {
     }
 
     private void init() {
-
         setTitle("Repertoire");
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setSize(550, 700);
@@ -29,8 +27,6 @@ public class RepertoireFrame extends JDialog {
         mainPanel.add(detailsSeancePanel);
         getContentPane().add(mainPanel);
 
-
         seanceController.fillTheTable();
     }
-
 }

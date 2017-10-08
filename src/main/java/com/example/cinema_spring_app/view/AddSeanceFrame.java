@@ -7,7 +7,6 @@ import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
 import org.springframework.stereotype.Component;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +16,9 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class AddSeanceFrame extends JDialog {
-
 
     private JComboBox<Movie> movieData;
     private JComboBox<Integer> year;
@@ -89,7 +86,6 @@ public class AddSeanceFrame extends JDialog {
         mainPanel.add(buttonPane);
         getContentPane().add(mainPanel);
 
-
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +101,7 @@ public class AddSeanceFrame extends JDialog {
             }
         });
     }
+
     public void setFieldsForSeance(Seance seance){
         seance.setMovie((Movie) movieData.getSelectedItem());
         seance.setDate(Date.valueOf(LocalDate.of(
@@ -117,79 +114,6 @@ public class AddSeanceFrame extends JDialog {
         seance.setHall((CinemaHall) hallData.getSelectedItem());
 
     }
-
-    public JComboBox<Integer> getYear() {
-        return year;
-    }
-
-    public JComboBox<Integer> getMonth() {
-        return month;
-    }
-
-    public JComboBox<Integer> getDay() {
-        return day;
-    }
-
-    public SeanceController getSeanceController() {
-        return seanceController;
-    }
-
-    public TableSeancePanel getTableSeancePanel() {
-        return tableSeancePanel;
-    }
-
-    public HallController getHallController() {
-        return hallController;
-    }
-
-    public JComboBox<Movie> getMovieData() {
-        return movieData;
-    }
-
-    public void setMovieData(JComboBox<Movie> movieData) {
-        this.movieData = movieData;
-    }
-
-    public MovieController getMovieController() {
-        return movieController;
-    }
-
-    public void setYear(JComboBox<Integer> year) {
-        this.year = year;
-    }
-
-    public void setMonth(JComboBox<Integer> month) {
-        this.month = month;
-    }
-
-    public void setDay(JComboBox<Integer> day) {
-        this.day = day;
-    }
-
-    public JComboBox<Integer> getHour() {
-        return hour;
-    }
-
-    public void setHour(JComboBox<Integer> hour) {
-        this.hour = hour;
-    }
-
-    public JComboBox<Integer> getMinute() {
-        return minute;
-    }
-
-    public void setMinute(JComboBox<Integer> minute) {
-        this.minute = minute;
-    }
-
-    public void setHallData(JComboBox<CinemaHall> hallData) {
-        this.hallData = hallData;
-    }
-
-    public JComboBox<CinemaHall> getHallData() {
-        return hallData;
-    }
-
     private Integer[] initDayBox(){
         Integer[] dayBox = new Integer[31];
         int counter = 1;
