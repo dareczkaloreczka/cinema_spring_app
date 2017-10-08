@@ -10,12 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Component
 public class EditMovieFrame extends JDialog {
-
-    public static EditMovieFrame editMovieFrame;
 
     private JTextField titleData;
     private JComboBox<Integer> premiereYear;
@@ -26,7 +26,7 @@ public class EditMovieFrame extends JDialog {
     private JComboBox<Integer> durationData;
     private JComboBox<MovieCategory> categoryBox;
     private final MovieController movieController;
-    private Movie movie;
+    // private Movie movie;
 
     public EditMovieFrame(MovieController movieController) throws HeadlessException {
         this.movieController = movieController;
@@ -95,21 +95,34 @@ public class EditMovieFrame extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                movieController.editMovie(movie);
+                movieController.editMovie(movieController.getSelectedMovie());
                 movieController.updateView();
                 setVisible(false);
             }
         });
-
-
     }
 
-    public static EditMovieFrame getEditMovieFrame() {
-        return editMovieFrame;
+    public String[] getMovieData() {
+        String[] movieData = {
+                titleData.getText(),
+                convertBoxesToDate().toString(),
+                directorData.getText(),
+                genreBox.getSelectedItem().toString(),
+                durationData.getSelectedItem().toString(),
+                categoryBox.getSelectedItem().toString()};
+        return movieData;
     }
 
-    public static void setEditMovieFrame(EditMovieFrame editMovieFrame) {
-        EditMovieFrame.editMovieFrame = editMovieFrame;
+    private Date convertBoxesToDate() {
+        int year = (Integer) premiereYear.getSelectedItem();
+        int month = (Integer) premiereMonth.getSelectedItem();
+        int day = (Integer) premiereDay.getSelectedItem();
+        return Date.valueOf(LocalDate.of(year, month, day));
+    }
+
+    public void setFields(Movie movie) {
+        titleData.setText(movie.getTitle());
+        directorData.setText(movie.getDirector());
     }
 
     public JTextField getTitleData() {
@@ -168,13 +181,13 @@ public class EditMovieFrame extends JDialog {
         this.durationData = durationData;
     }
 
-    public Movie getMovie() {
+   /* public Movie getMovie() {
         return movie;
     }
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-    }
+    }*/
 
     public JComboBox<MovieCategory> getCategoryBox() {
         return categoryBox;

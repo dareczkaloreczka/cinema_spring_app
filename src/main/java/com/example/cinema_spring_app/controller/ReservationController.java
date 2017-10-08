@@ -79,7 +79,7 @@ public class ReservationController {
     }
 
     public void initializeSeatsPanel() {
-
+        makeReservationFrame.getSeatsPanel().removeAll();
         Seance seance = seanceController.getSelectedSeance();
         List<Reservation> bookedReservations = reservationRepository.findBySeance(seance);
         List<JButton> seats = makeReservationFrame.seatsFactory(seance.getHall().getNumberOfRows(), seance.getHall().getSeatsInRow());

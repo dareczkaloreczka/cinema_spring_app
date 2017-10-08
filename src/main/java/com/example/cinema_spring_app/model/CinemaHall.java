@@ -44,4 +44,9 @@ public class CinemaHall {
     public void setSeatsInRow(int seatsInRow) {
         this.seatsInRow = seatsInRow;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
 }

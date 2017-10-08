@@ -105,10 +105,16 @@ public class DetailsSeancePanel extends JPanel {
             }
         });
     }
+
+    public void setSeanceData(Seance seance){
+        movieData.setText(seance.getMovie().toString());
+        dateData.setText(String.valueOf(seance.getDate()));
+        timeData.setText(String.valueOf(seance.getTime()));
+        hallData.setText(String.valueOf(seance.getHall().getId()));
+
+    }
     private void editSeance() {
-        Seance seance = seanceController.getSelectedSeance();
-        editSeanceFrame.setSeance(seance);
-        seanceController.showEditedSeance(seance);
+        seanceController.showEditedSeance(seanceController.getSelectedSeance());
         editSeanceFrame.setVisible(true);
     }
 
@@ -117,7 +123,7 @@ public class DetailsSeancePanel extends JPanel {
     }
 
     private void removeSeance(){
-        seanceController.removeSeance();
+        seanceController.removeSeance(seanceController.getSelectedSeance());
     }
 
     private void makeReservation(){

@@ -124,9 +124,7 @@ public class DetailsMoviePanel extends JPanel implements Observable {
     }
 
     private void editMovie() {
-        Movie movie = movieController.getSelectedMovie();
-        editMovieFrame.setMovie(movie);
-        movieController.showEditedMovie(movie);
+        movieController.showEditedMovie(movieController.getSelectedMovie());
         editMovieFrame.setVisible(true);
     }
 
@@ -136,7 +134,7 @@ public class DetailsMoviePanel extends JPanel implements Observable {
     }
 
     private void removeMovie() {
-        movieController.removeMovie();
+        movieController.removeMovie(movieController.getSelectedMovie());
     }
 
     private void showMovieSeances(){
@@ -144,6 +142,14 @@ public class DetailsMoviePanel extends JPanel implements Observable {
         showMovieSeances.setMovie(movie);
         movieController.fillTheTableForSelectedMovie(movie);
         showMovieSeances.setVisible(true);
+    }
+    public void setMovieData(Movie movie){
+        titleData.setText(movie.getTitle());
+        premiereData.setText(String.valueOf(movie.getYear()));
+        directorData.setText(movie.getDirector());
+        genreData.setText(movie.getGenre().toString());
+        durationData.setText(String.valueOf(movie.getDuration()));
+        ageData.setText(movie.getAgeCategory().toString());
     }
 
     public JTextArea getTitleData() {

@@ -17,7 +17,7 @@ public class Seance {
 
     private Time time;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn
     private Movie movie;
     @ManyToOne

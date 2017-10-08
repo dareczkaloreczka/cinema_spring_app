@@ -1,17 +1,13 @@
 package com.example.cinema_spring_app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.hibernate.annotations.Proxy;
+import org.springframework.data.repository.cdi.Eager;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 @Entity
 @Table
 public class Movie {
@@ -32,7 +28,8 @@ public class Movie {
     private MovieGenre genre;
     @Column
     private MovieCategory ageCategory;
-    @OneToMany
+    @OneToMany ( fetch = FetchType.EAGER)
+    @JoinColumn
     private List<Seance> seances;
 
 

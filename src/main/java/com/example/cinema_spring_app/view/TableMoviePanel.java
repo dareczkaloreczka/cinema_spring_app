@@ -1,12 +1,15 @@
 package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.MovieController;
+import com.example.cinema_spring_app.model.Movie;
 import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.util.Observable;
 import java.util.Observer;
+
 @Component
 
 public class TableMoviePanel extends JPanel implements Observer {
@@ -31,24 +34,39 @@ public class TableMoviePanel extends JPanel implements Observer {
         add(scrollPanePanel);
 
 
-
         movieTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (getMovieTable().getSelectedRow() > -1) {
-                 movieController.showSelected();
+                    movieController.showSelected(movieController.getSelectedMovie());
                 }
             }
         });
 
     }
 
-    public  MyTableModel getModel() {
+    public void fillTheRow(String[] rowData) {
+        getModel().addRow(rowData);
+    }
+
+    public int getSelectedIndex() {
+        int id = -1;
+        if (getMovieTable().getSelectedRow() > -1) {
+            id = Integer.parseInt((String) getMovieTable().getModel().getValueAt(getMovieTable().getSelectedRow(), 0));
+        }
+        return id;
+    }
+
+    public void clearContent() {
+        getModel().setRowCount(0);
+    }
+
+    public MyTableModel getModel() {
         return model;
     }
 
 
-    public  JTable getMovieTable() {
+    public JTable getMovieTable() {
         return movieTable;
     }
 

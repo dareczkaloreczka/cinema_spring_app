@@ -3,13 +3,19 @@ package com.example.cinema_spring_app.view;
 import com.example.cinema_spring_app.controller.HallController;
 import com.example.cinema_spring_app.controller.MovieController;
 import com.example.cinema_spring_app.controller.SeanceController;
+import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.Seance;
 import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +29,12 @@ public class EditSeanceFrame extends JDialog {
     private JComboBox<Integer> day;
     private JComboBox<Integer> hour;
     private JComboBox<Integer> minute;
-    private JComboBox<Integer> hallData;
+    private JComboBox<CinemaHall> hallData;
     private final SeanceController seanceController;
     private final HallController hallController;
     private final MovieController movieController;
-    private Seance seance;
+  //  private Seance seance;
+
     public EditSeanceFrame(SeanceController seanceController, HallController hallController, MovieController movieController) throws HeadlessException {
         this.seanceController = seanceController;
         this.hallController = hallController;
@@ -65,7 +72,7 @@ public class EditSeanceFrame extends JDialog {
         timePane.add(minute);
         JPanel hallPane = new JPanel();
         JLabel hallNo = new JLabel("Hall No: ");
-        List<Integer> halls = hallController.getAllHalls().stream().map(hall -> hall.getId()).collect(Collectors.toList());
+        List<CinemaHall> halls = hallController.getAllHalls();
         hallData = new JComboBox(halls.toArray());
         hallPane.add(hallNo);
         hallPane.add(hallData);
@@ -86,12 +93,34 @@ public class EditSeanceFrame extends JDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seanceController.editSeance(seance);
+                seanceController.editSeance(seanceController.getSelectedSeance());
                 seanceController.updateView();
                 setVisible(false);
             }
         });
 
+    }
+
+    public Object[] getSeanceData() {
+        Object[] seanceData = {
+                movieData.getSelectedItem(),
+                convertBoxesToDate(),
+                convertBoxesToTime(),
+                hallData.getSelectedItem()};
+        return seanceData;
+    }
+
+    private Date convertBoxesToDate() {
+        int year = (Integer) getYear().getSelectedItem();
+        int month = (Integer) getMonth().getSelectedItem();
+        int day = (Integer) getDay().getSelectedItem();
+        return Date.valueOf(LocalDate.of(year, month, day));
+    }
+
+    private Time convertBoxesToTime() {
+        int hour = (Integer) getHour().getSelectedItem();
+        int minute = (Integer) getMinute().getSelectedItem();
+        return Time.valueOf(LocalTime.of(hour, minute));
     }
 
     public JComboBox<Movie> getMovieData() {
@@ -150,11 +179,11 @@ public class EditSeanceFrame extends JDialog {
         this.minute = minute;
     }
 
-    public JComboBox<Integer> getHallData() {
+    public JComboBox<CinemaHall> getHallData() {
         return hallData;
     }
 
-    public void setHallData(JComboBox<Integer> hallData) {
+    public void setHallData(JComboBox<CinemaHall> hallData) {
         this.hallData = hallData;
     }
 
@@ -162,50 +191,58 @@ public class EditSeanceFrame extends JDialog {
         return seanceController;
     }
 
-    public Seance getSeance() {
-        return seance;
-    }
 
-    public void setSeance(Seance seance) {
-        this.seance = seance;
-    }
-    private Integer[] initDayBox(){
+    private Integer[] initDayBox() {
         Integer[] dayBox = new Integer[31];
         int counter = 1;
-        for (int i = 0; i <dayBox.length ; i++) {
+        for (int i = 0; i < dayBox.length; i++) {
             dayBox[i] = counter;
             counter++;
         }
         return dayBox;
     }
-    private Integer[] initMonthBox(){
+
+    public void showEditedSeance(Seance seance) {
+        movieData.setSelectedItem(seance.getMovie());
+        day.setSelectedItem(seance.getDate().toLocalDate().getDayOfMonth());
+        month.setSelectedItem(seance.getDate().toLocalDate().getMonth());
+        year.setSelectedItem(seance.getDate().toLocalDate().getYear());
+        hour.setSelectedItem(seance.getTime().toLocalTime().getHour());
+        minute.setSelectedItem(seance.getTime().toLocalTime().getMinute());
+        hallData.setSelectedItem(seance.getHall().getId());
+    }
+
+    private Integer[] initMonthBox() {
         Integer[] monthBox = new Integer[12];
         int counter = 1;
-        for (int i = 0; i <monthBox.length ; i++) {
+        for (int i = 0; i < monthBox.length; i++) {
             monthBox[i] = counter;
             counter++;
         }
         return monthBox;
     }
-    private Integer[] initYearBox(){
+
+    private Integer[] initYearBox() {
         Integer[] yearBox = new Integer[20];
         int counter = 2000;
-        for (int i = 0; i <yearBox.length ; i++) {
+        for (int i = 0; i < yearBox.length; i++) {
             yearBox[i] = counter;
             counter++;
         }
         return yearBox;
     }
-    private Integer[] initHourBox(){
+
+    private Integer[] initHourBox() {
         Integer[] hourBox = new Integer[24];
-        for (int i = 0; i <hourBox.length ; i++) {
+        for (int i = 0; i < hourBox.length; i++) {
             hourBox[i] = i;
         }
         return hourBox;
     }
-    private Integer[] initMinuteBox(){
+
+    private Integer[] initMinuteBox() {
         Integer[] minuteBox = new Integer[60];
-        for (int i = 0; i <minuteBox.length ; i++) {
+        for (int i = 0; i < minuteBox.length; i++) {
             minuteBox[i] = i;
         }
         return minuteBox;

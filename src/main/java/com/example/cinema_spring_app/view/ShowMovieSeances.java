@@ -34,6 +34,13 @@ public class ShowMovieSeances extends JDialog {
         add(scrollPanePanel);
 
     }
+
+    public void fillTheRow(String[] rowData) {
+        getModel().addRow(rowData);
+    }
+    public void clearContent(){
+        getModel().setRowCount(0);
+    }
     public MyTableModel getModel() {
         return model;
     }

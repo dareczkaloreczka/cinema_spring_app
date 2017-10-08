@@ -38,7 +38,7 @@ public class TableSeancePanel extends JPanel implements Observer {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (seanceTable.getSelectedRow() > -1) {
-                   seanceController.showSelectedSeance();
+                   seanceController.showSelectedSeance(seanceController.getSelectedSeance());
                 }
             }
         });
@@ -61,6 +61,19 @@ public class TableSeancePanel extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         model.setRowCount(0);
         seanceController.fillTheTable();
+    }
+    public void fillTheRow(String[] rowData) {
+        getModel().addRow(rowData);
+    }
 
+    public void clearContent(){
+        getModel().setRowCount(0);
+    }
+    public int getSelectedIndex() {
+        int id = -1;
+        if (seanceTable.getSelectedRow() > -1) {
+            id = Integer.parseInt((String) seanceTable.getModel().getValueAt(seanceTable.getSelectedRow(), 0));
+        }
+        return id;
     }
 }

@@ -32,6 +32,12 @@ public class TableReservationPanel extends JPanel {
         add(scrollPanePanel);
 
     }
+    public void fillTheRow(String[] rowData) {
+        getModel().addRow(rowData);
+    }
+    public void clearContent(){
+        getModel().setRowCount(0);
+    }
 
     public MyTableModel getModel() {
         return model;

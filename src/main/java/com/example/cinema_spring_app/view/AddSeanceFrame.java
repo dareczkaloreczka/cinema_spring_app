@@ -3,13 +3,19 @@ package com.example.cinema_spring_app.view;
 import com.example.cinema_spring_app.controller.HallController;
 import com.example.cinema_spring_app.controller.MovieController;
 import com.example.cinema_spring_app.controller.SeanceController;
+import com.example.cinema_spring_app.model.CinemaHall;
 import com.example.cinema_spring_app.model.Movie;
+import com.example.cinema_spring_app.model.Seance;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +29,7 @@ public class AddSeanceFrame extends JDialog {
     private JComboBox<Integer> day;
     private JComboBox<Integer> hour;
     private JComboBox<Integer> minute;
-    private JComboBox<Integer> hallData;
+    private JComboBox<CinemaHall> hallData;
     private final SeanceController seanceController;
     private final MovieController movieController;
     private final TableSeancePanel tableSeancePanel;
@@ -66,7 +72,7 @@ public class AddSeanceFrame extends JDialog {
         timePane.add(minute);
         JPanel hallPane = new JPanel();
         JLabel hallNo = new JLabel("Hall No: ");
-        List<Integer> halls = hallController.getAllHalls().stream().map(hall -> hall.getId()).collect(Collectors.toList());
+        List<CinemaHall> halls = hallController.getAllHalls();
         hallData = new JComboBox(halls.toArray());
         hallPane.add(hallNo);
         hallPane.add(hallData);
@@ -99,7 +105,18 @@ public class AddSeanceFrame extends JDialog {
             }
         });
     }
+    public void setFieldsForSeance(Seance seance){
+        seance.setMovie((Movie) movieData.getSelectedItem());
+        seance.setDate(Date.valueOf(LocalDate.of(
+                (Integer)year.getSelectedItem(),
+                (Integer)month.getSelectedItem(),
+                (Integer)day.getSelectedItem())));
+        seance.setTime(Time.valueOf(LocalTime.of(
+                (Integer)hour.getSelectedItem(),
+                (Integer)minute.getSelectedItem())));
+        seance.setHall((CinemaHall) hallData.getSelectedItem());
 
+    }
 
     public JComboBox<Integer> getYear() {
         return year;
@@ -165,11 +182,11 @@ public class AddSeanceFrame extends JDialog {
         this.minute = minute;
     }
 
-    public void setHallData(JComboBox<Integer> hallData) {
+    public void setHallData(JComboBox<CinemaHall> hallData) {
         this.hallData = hallData;
     }
 
-    public JComboBox<Integer> getHallData() {
+    public JComboBox<CinemaHall> getHallData() {
         return hallData;
     }
 

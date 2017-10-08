@@ -1,6 +1,7 @@
 package com.example.cinema_spring_app.view;
 
 import com.example.cinema_spring_app.controller.MovieController;
+import com.example.cinema_spring_app.model.Movie;
 import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Component
@@ -104,6 +107,18 @@ public class AddMovieFrame extends JDialog {
                 setVisible(false);
             }
         });
+    }
+
+    public void setFieldsForMovie(Movie movie){
+        movie.setTitle(getTitleData().getText());
+        movie.setYear(Date.valueOf(LocalDate.of(
+                (Integer)getPremiereYear().getSelectedItem(),
+                (Integer)getPremiereMonth().getSelectedItem(),
+                (Integer)getPremiereDay().getSelectedItem())));
+        movie.setDirector(getDirectorData().getText());
+        movie.setGenre((MovieGenre) getGenreBox().getSelectedItem());
+        movie.setDuration((Integer)(getDurationData().getSelectedItem()));
+        movie.setAgeCategory((MovieCategory) getCategoryBox().getSelectedItem());
     }
 
     private Integer[] initDayBox(){

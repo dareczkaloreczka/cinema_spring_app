@@ -32,4 +32,5 @@ public class RepertoireFrame extends JDialog {
 
         seanceController.fillTheTable();
     }
+
 }

@@ -5,6 +5,8 @@ import com.example.cinema_spring_app.model.Movie;
 
 import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
+import com.example.cinema_spring_app.model.Seance;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
