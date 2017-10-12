@@ -83,7 +83,8 @@ public class MakeReservationFrame extends JDialog {
 
     public void initializeSeatsPanel(Seance seance) {
         seatsPanel.removeAll();
-        List<Reservation> bookedReservations = reservationController.getBySeance(seance);
+        //List<Reservation> bookedReservations = reservationController.getBySeance(seance);
+        List<Reservation> bookedReservations = seance.getReservations();
         List<JButton> seats = seatsFactory(seance.getHall().getNumberOfRows(), seance.getHall().getSeatsInRow());
         seatsPanel.setLayout(new GridLayout(seance.getHall().getNumberOfRows(), seance.getHall().getSeatsInRow()));
         for (JButton seat : seats) {

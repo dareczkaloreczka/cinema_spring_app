@@ -14,12 +14,14 @@ public class Seance {
     private int id;
     private Date date;
     private Time time;
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name="movie_id", nullable=false)
     private Movie movie;
     @ManyToOne
     private CinemaHall hall;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
+            mappedBy = "seance", orphanRemoval = true)
+    @Column(nullable = false)
     private List<Reservation> reservations;
 
    public List<Reservation> getReservations() {
@@ -28,6 +30,11 @@ public class Seance {
 
     public void setReservations(List<Reservation> reservationList) {
         this.reservations = reservationList;
+        this.reservations.stream().forEach(r -> r.setSeance(this));
+    }
+    public void addReservation (Reservation reservation) {
+        this.reservations.add(reservation);
+        reservation.setSeance(this);
     }
 
     public int getId() {

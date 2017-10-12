@@ -12,7 +12,6 @@ import com.example.cinema_spring_app.view.EditMovieFrame;
 import com.example.cinema_spring_app.view.ShowMovieSeances;
 import com.example.cinema_spring_app.view.TableMoviePanel;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.util.List;
@@ -51,8 +50,10 @@ public class MovieController {
     }
     public void fillTheTableForSelectedMovie(Movie movie){
         showMovieSeances.clearContent();
-        List<Seance> seancesOfSelectedMovie = seanceRepository.findByMovie(movie, new Sort(
-                new Sort.Order(Sort.Direction.ASC, "date"), new Sort.Order(Sort.Direction.ASC, "time")));
+      //  List<Seance> seancesOfSelectedMovie = seanceRepository.findByMovie(movie, new Sort(
+       //         new Sort.Order(Sort.Direction.ASC, "date"), new Sort.Order(Sort.Direction.ASC, "time")));
+        List<Seance> seancesOfSelectedMovie = movie.getSeances();
+        
         for (Seance s : seancesOfSelectedMovie) {
             String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()), String.valueOf(s.getTime()), String.valueOf(s.getHall().getId())};
             showMovieSeances.fillTheRow(seanceData);

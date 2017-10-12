@@ -25,7 +25,7 @@ public class Reservation {
     private TicketOption ticketOption;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name="seance_id", nullable=false)
     private Seance seance;
 
     @Transient

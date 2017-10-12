@@ -28,8 +28,9 @@ public class Movie {
     private MovieGenre genre;
     @Column
     private MovieCategory ageCategory;
-    @OneToMany ( fetch = FetchType.EAGER)
-    @JoinColumn
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
+            mappedBy = "movie", orphanRemoval = true)
+    @Column(nullable = false)
     private List<Seance> seances;
 
 
@@ -39,6 +40,12 @@ public class Movie {
 
     public void setSeances(List<Seance> seances) {
         this.seances = seances;
+        this.seances.stream().forEach(s -> s.setMovie(this));
+    }
+
+    public void addSeance (Seance seance) {
+        this.seances.add(seance);
+        seance.setMovie(this);
     }
     public MovieGenre getGenre() {
         return genre;
