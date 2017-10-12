@@ -53,8 +53,7 @@ public class SeanceController {
         detailsSeancePanel.setSeanceData(seance);
     }
 
-    public void addSeance() {
-        Seance seance = new Seance();
+    public void addSeance(Seance seance) {
         addSeanceFrame.setFieldsForSeance(seance);
         seanceRepository.save(seance);
         updateView();

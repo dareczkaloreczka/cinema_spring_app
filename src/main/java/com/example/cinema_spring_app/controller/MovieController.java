@@ -5,7 +5,6 @@ import com.example.cinema_spring_app.model.MovieCategory;
 import com.example.cinema_spring_app.model.MovieGenre;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.repo.MovieRepository;
-import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddMovieFrame;
 import com.example.cinema_spring_app.view.DetailsMoviePanel;
 import com.example.cinema_spring_app.view.EditMovieFrame;
@@ -26,18 +25,16 @@ public class MovieController {
     private final DetailsMoviePanel detailsMoviePanel;
     private final AddMovieFrame addMovieFrame;
     private final EditMovieFrame editMovieFrame;
-    private final SeanceRepository seanceRepository;
     private final ShowMovieSeances showMovieSeances;
 
     @Lazy
-    public MovieController(MovieRepository movieRepository, MovieObservable movieObservable, TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, AddMovieFrame addMovieFrame, EditMovieFrame editMovieFrame, SeanceRepository seanceRepository, ShowMovieSeances showMovieSeances) {
+    public MovieController(MovieRepository movieRepository, MovieObservable movieObservable, TableMoviePanel tableMoviePanel, DetailsMoviePanel detailsMoviePanel, AddMovieFrame addMovieFrame, EditMovieFrame editMovieFrame, ShowMovieSeances showMovieSeances) {
         this.movieRepository = movieRepository;
         this.movieObservable = movieObservable;
         this.tableMoviePanel = tableMoviePanel;
         this.detailsMoviePanel = detailsMoviePanel;
         this.addMovieFrame = addMovieFrame;
         this.editMovieFrame = editMovieFrame;
-        this.seanceRepository = seanceRepository;
         this.showMovieSeances = showMovieSeances;
     }
 
@@ -50,12 +47,11 @@ public class MovieController {
     }
     public void fillTheTableForSelectedMovie(Movie movie){
         showMovieSeances.clearContent();
-      //  List<Seance> seancesOfSelectedMovie = seanceRepository.findByMovie(movie, new Sort(
-       //         new Sort.Order(Sort.Direction.ASC, "date"), new Sort.Order(Sort.Direction.ASC, "time")));
         List<Seance> seancesOfSelectedMovie = movie.getSeances();
         
         for (Seance s : seancesOfSelectedMovie) {
-            String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()), String.valueOf(s.getTime()), String.valueOf(s.getHall().getId())};
+            String[] seanceData = {String.valueOf(s.getId()), s.getMovie().getTitle(),String.valueOf(s.getDate()),
+                    String.valueOf(s.getTime()), String.valueOf(s.getHall().getId())};
             showMovieSeances.fillTheRow(seanceData);
         }
     }
@@ -69,8 +65,7 @@ public class MovieController {
     public void showSelected(Movie movie) {
         detailsMoviePanel.setMovieData(movie);
     }
-    public void addMovie() {
-        Movie movie = new Movie();
+    public void addMovie(Movie movie) {
         addMovieFrame.setFieldsForMovie(movie);
         movieRepository.save(movie);
         updateView();

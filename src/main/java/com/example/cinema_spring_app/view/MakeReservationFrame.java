@@ -59,7 +59,7 @@ public class MakeReservationFrame extends JDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                reservationController.addReservation(rowNo, seatNo);
+                reservationController.addReservation(new Reservation(), rowNo, seatNo);
                 setVisible(false);
             }
         });

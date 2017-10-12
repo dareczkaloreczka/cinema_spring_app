@@ -44,8 +44,7 @@ public class ReservationController {
         return reservationRepository.findOne(tableReservationPanel.getSelectedIndex());
     }
 
-    public void addReservation(String row, int seat) {
-        Reservation reservation = new Reservation();
+    public void addReservation(Reservation reservation, String row, int seat) {
         makeReservationFrame.setFieldsForReservation(reservation,row,seat);
         reservationRepository.save(reservation);
 
@@ -53,10 +52,6 @@ public class ReservationController {
 
     public void removeReservation(Reservation reservation) {
         reservationRepository.delete(reservation);
-    }
-
-    public List<Reservation> getBySeance(Seance seance){
-        return reservationRepository.findBySeance(seance);
     }
 
     public void initializeSeatsPanel(Seance seance) {

@@ -89,7 +89,7 @@ public class AddSeanceFrame extends JDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seanceController.addSeance();
+                seanceController.addSeance(new Seance());
                 setVisible(false);
             }
         });

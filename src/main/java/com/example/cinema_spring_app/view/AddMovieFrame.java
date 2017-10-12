@@ -93,7 +93,7 @@ public class AddMovieFrame extends JDialog {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                movieController.addMovie();
+                movieController.addMovie(new Movie());
                 setVisible(false);
             }
         });
