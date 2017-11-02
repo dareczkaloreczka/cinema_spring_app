@@ -5,16 +5,20 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 @Component
-public class MgmtReservationFrame extends JDialog {
+public class MgmtReservationFrame extends JDialog{
 
     private final TableReservationPanel tableReservationPanel;
     private final ReservationController reservationController;
+    private final EditReservationFrame editReservationFrame;
 
-    public MgmtReservationFrame(TableReservationPanel tableReservationPanel, ReservationController reservationController){
+    public MgmtReservationFrame(TableReservationPanel tableReservationPanel, ReservationController reservationController, EditReservationFrame editReservationFrame){
         this.tableReservationPanel = tableReservationPanel;
         this.reservationController = reservationController;
+        this.editReservationFrame = editReservationFrame;
         init();
     }
 
@@ -32,13 +36,30 @@ public class MgmtReservationFrame extends JDialog {
         add(buttonPane);
         reservationController.fillTheTable();
 
-        remove.addActionListener(new ActionListener() {
+        edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                reservationController.removeReservation(reservationController.getSelectedReservation());
+               editReservation();
             }
         });
 
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeReservation();
+            }
+        });
+
+    }
+    private void removeReservation(){
+        reservationController.removeReservation(reservationController.getSelectedReservation());
+    }
+
+    private void editReservation(){
+        reservationController.showEditedReservation(reservationController.getSelectedReservation());
+        reservationController.initializeRowBox(reservationController.getSelectedReservation());
+        reservationController.initializeSeatBox(reservationController.getSelectedReservation());
+        editReservationFrame.setVisible(true);
     }
 
 

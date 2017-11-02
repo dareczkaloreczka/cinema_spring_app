@@ -28,7 +28,7 @@ public class Movie {
     private MovieGenre genre;
     @Column
     private MovieCategory ageCategory;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,
             mappedBy = "movie", orphanRemoval = true)
     @Column(nullable = false)
     private List<Seance> seances;

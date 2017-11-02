@@ -7,6 +7,7 @@ import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddSeanceFrame;
 import com.example.cinema_spring_app.view.DetailsSeancePanel;
 import com.example.cinema_spring_app.view.EditSeanceFrame;
+import com.example.cinema_spring_app.view.TableMoviePanel;
 import com.example.cinema_spring_app.view.TableSeancePanel;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;

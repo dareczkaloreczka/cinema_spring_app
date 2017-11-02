@@ -5,11 +5,11 @@ import com.example.cinema_spring_app.model.Reservation;
 import com.example.cinema_spring_app.model.Seance;
 import com.example.cinema_spring_app.model.TicketOption;
 import com.example.cinema_spring_app.model.repo.ReservationRepository;
+import com.example.cinema_spring_app.view.EditReservationFrame;
 import com.example.cinema_spring_app.view.MakeReservationFrame;
 import com.example.cinema_spring_app.view.TableReservationPanel;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.sql.Date;
@@ -17,20 +17,21 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class ReservationControllerTest {
 
     ReservationRepository reservationRepositoryMock = Mockito.mock(ReservationRepository.class);
     MakeReservationFrame makeReservationFrameMock = Mockito.mock(MakeReservationFrame.class);
     TableReservationPanel tableReservationPanelMock = Mockito.mock(TableReservationPanel.class);
+    EditReservationFrame editReservationFrameMock = Mockito.mock(EditReservationFrame.class);
+    ReservationObservable reservationObservableMock = Mockito.mock(ReservationObservable.class);
     ReservationController reservationController;
     Reservation testReservation = new Reservation();
     Seance seance = new Seance();
     Movie movie = new Movie();
     @Before
     public void setUp() throws Exception {
-        reservationController = new ReservationController(reservationRepositoryMock, makeReservationFrameMock, tableReservationPanelMock);
+        reservationController = new ReservationController(reservationRepositoryMock, makeReservationFrameMock,
+                tableReservationPanelMock, editReservationFrameMock, reservationObservableMock);
         movie.setTitle("TestMovie");
         seance.setMovie(movie);
         seance.setDate(Date.valueOf("2014-01-01"));

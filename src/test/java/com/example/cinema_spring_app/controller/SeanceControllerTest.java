@@ -7,6 +7,7 @@ import com.example.cinema_spring_app.model.repo.SeanceRepository;
 import com.example.cinema_spring_app.view.AddSeanceFrame;
 import com.example.cinema_spring_app.view.DetailsSeancePanel;
 import com.example.cinema_spring_app.view.EditSeanceFrame;
+import com.example.cinema_spring_app.view.TableMoviePanel;
 import com.example.cinema_spring_app.view.TableSeancePanel;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +19,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class SeanceControllerTest {
 
     SeanceRepository seanceRepositoryMock = Mockito.mock(SeanceRepository.class);
@@ -28,6 +27,7 @@ public class SeanceControllerTest {
     AddSeanceFrame addSeanceFrameMock = Mockito.mock(AddSeanceFrame.class);
     EditSeanceFrame editSeanceFrameMock = Mockito.mock(EditSeanceFrame.class);
     SeanceObservable seanceObservableMock = Mockito.mock(SeanceObservable.class);
+
     Seance testSeance = new Seance();
     Movie movie;
     CinemaHall hall;

@@ -45,6 +45,8 @@ public class MovieController {
             tableMoviePanel.fillTheRow(movieData);
         }
     }
+
+
     public void fillTheTableForSelectedMovie(Movie movie){
         showMovieSeances.clearContent();
         List<Seance> seancesOfSelectedMovie = movie.getSeances();

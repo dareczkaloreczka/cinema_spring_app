@@ -19,7 +19,7 @@ public class Seance {
     private Movie movie;
     @ManyToOne
     private CinemaHall hall;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE,
             mappedBy = "seance", orphanRemoval = true)
     @Column(nullable = false)
     private List<Reservation> reservations;
